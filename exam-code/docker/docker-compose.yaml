@@ -1,9 +1,43 @@
+version: "3.9"
+
 services:
   web:
-
+    build: ./fe
+    container_name: web
+    ports:
+      - "5002:5002"
+    depends_on:
+      - backend-service
+    networks:
+      - crypto-network
 
   backend-service:
-
+    build: ./be
+    container_name: backend-service
+    ports:
+      - "5001:5001"
+    depends_on:
+      - mysqldb
+    environment:
+      MYSQL_HOST: mysqldb
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DB: ${MYSQL_DB}
+    networks:
+      - crypto-network
 
   mysqldb:
-      
+    image: mysql:5.7
+    container_name: mysqldb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB}
+    ports:
+      - "3306:3306"
+    networks:
+      - crypto-network
+
+networks:
+  crypto-network:
+    driver: bridge

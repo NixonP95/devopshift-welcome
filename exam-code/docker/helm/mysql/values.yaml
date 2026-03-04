@@ -1,0 +1,18 @@
+replicaCount: 1
+
+image:
+  repository: mysql
+  tag: "5.7"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 3306
+
+mysql:
+  # Non-secret value (OK to store in git)
+  database: crypto_db
+
+  # Secret reference (NO secret value stored in git)
+  secretName: mysql-secret
+  rootPasswordKey: MYSQL_ROOT_PASSWORD

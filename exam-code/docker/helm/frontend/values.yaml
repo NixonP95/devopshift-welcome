@@ -1,0 +1,10 @@
+replicaCount: 2
+
+image:
+  repository: nixonp95/crypto-frontend
+  tag: "1.0"
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 5002

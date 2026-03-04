@@ -1,0 +1,19 @@
+replicaCount: 2
+
+image:
+  repository: nixonp95/crypto-backend
+  tag: "1.0"
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 5001
+
+mysql:
+  host: mysqldb
+  database: crypto_db
+
+  # Secret reference ONLY (no values in git)
+  secretName: mysql-secret
+  userKey: MYSQL_USER
+  passwordKey: MYSQL_PASSWORD
